@@ -4,10 +4,10 @@ from pydantic import (BaseModel,
                       field_validator,
                       model_validator)
 from fastapi import UploadFile, HTTPException, status
-from datetime import date, datetime
+from datetime import date
 import re
-
-
+from enum import Enum
+ 
 def validate(value):
     if len(value) < 6:
         raise ValueError('Password must be at least 6 characters long')
@@ -16,6 +16,7 @@ def validate(value):
     if not re.search(r'\d', value): 
         raise ValueError('Password must contain at least one number')
     return value
+
 
 def validate_birth(value):
     today = date.today()
@@ -130,4 +131,39 @@ class UpdatePhoto(BaseModel):
                 raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                                     detail='Only jpeg, jpg, and png files are allowed for images.')
         return value 
-    
+
+
+ 
+
+# cuisine schema
+
+class Cuisine(Enum):
+    ITALIAN = "Italian"
+    CHINESE = "Chinese"
+    INDIAN = "Indian"
+    MEXICAN = "Mexican"
+    FRENCH = "French"
+
+
+ 
+
+
+class Ratings(Enum):
+    EXCELLENT = 'Excellent'
+    VERY_GOOD = 'Very Good'
+    SATISFACTORY = 'Satisfactory'
+    DISAPPOINTING = 'Disappointing'
+    UNPALATABLE = 'Unpalatable'
+
+
+class Cuisine(Enum):
+    ITALIAN = "Italian"
+    CHINESE = "Chinese"
+    INDIAN = "Indian"
+    MEXICAN = "Mexican"
+    FRENCH = "French"
+
+class VoteType(Enum):
+    LIKE = "Like"
+    DISLIKE = "Dislike"
+

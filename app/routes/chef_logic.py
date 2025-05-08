@@ -170,13 +170,13 @@ def upload_photo(photo_file:UpdatePhoto,session:Session,user:Chef):
     file_size = photo_file.photo.file.tell()
     photo_file.photo.file.seek(0)  # Reset file pointer
 
-    if photo_file > MAX_FILE_SIZE:
+    if file_size > MAX_FILE_SIZE:
         raise HTTPException(
             status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
             detail="File size exceeds 3.5 MB limit"
         )
 
-    DIR = 'uploads/'
+    DIR = 'uploads/chefs'
     IMG_DIR = os.path.join(DIR,user)
     os.makedirs(IMG_DIR,exist_ok=True)
     # --- Delete old photo if it exists ---

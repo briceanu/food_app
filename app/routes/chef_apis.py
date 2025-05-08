@@ -89,7 +89,7 @@ async def update_password(
                             user_data:Annotated[UpdatePassword,Form()],
                             session:Session=Depends(get_db),
                             user:Chef=Depends(chef_logic.get_current_user),
-                            ):
+                            )-> dict:
 
     try:
         result = chef_logic.update_password(user_data,session,user)
@@ -111,7 +111,7 @@ async def update_user_data(
                             user_data:UpdateUserData,
                             session:Session=Depends(get_db),
                             user:Chef=Depends(chef_logic.get_current_user),
-                            ):
+                            ) -> dict:
 
     try:
         result = chef_logic.update_user_data(user_data,session,user)
@@ -131,7 +131,7 @@ async def update_user_photo(
                             photo_file:UpdatePhoto = Depends(),
                             session:Session=Depends(get_db),
                             user:Chef=Depends(chef_logic.get_current_user),
-                            ):
+                            )-> dict:
 
     try:
         result = chef_logic.upload_photo(photo_file,session,user)
@@ -149,7 +149,7 @@ async def update_user_photo(
 async def remove_user_account(
                             session:Session=Depends(get_db),
                             user:Chef=Depends(chef_logic.get_current_user),
-                            ):
+                            )-> dict:
 
     try:
         result = chef_logic.remove_account(session,user)
